@@ -14,16 +14,83 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      participants: {
+        Row: {
+          college: string
+          created_at: string
+          department: string
+          email: string
+          full_name: string
+          id: string
+          phone: string
+          registration_id: string
+          status: Database["public"]["Enums"]["participant_status"]
+          year: string
+        }
+        Insert: {
+          college: string
+          created_at?: string
+          department: string
+          email: string
+          full_name: string
+          id?: string
+          phone: string
+          registration_id: string
+          status?: Database["public"]["Enums"]["participant_status"]
+          year: string
+        }
+        Update: {
+          college?: string
+          created_at?: string
+          department?: string
+          email?: string
+          full_name?: string
+          id?: string
+          phone?: string
+          registration_id?: string
+          status?: Database["public"]["Enums"]["participant_status"]
+          year?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "moderator" | "user"
+      participant_status:
+        | "registered"
+        | "confirmed"
+        | "cancelled"
+        | "checked_in"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +217,14 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "moderator", "user"],
+      participant_status: [
+        "registered",
+        "confirmed",
+        "cancelled",
+        "checked_in",
+      ],
+    },
   },
 } as const
