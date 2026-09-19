@@ -41,13 +41,14 @@ function Navbar({ active }: { active: number }) {
     return () => window.removeEventListener("scroll", update);
   }, []);
   const nav = [{ href: "#about", label: "About" }, { href: "#idea", label: "Levels" }, { href: "#experts", label: "Experts" }, { href: "#event", label: "Event" }];
+  const activeLevel = levels[active] ?? levels[0];
   return <header className={`site-nav ${solid ? "is-solid" : ""}`}>
     <a className="wordmark" href="#top" aria-label="MEC Game Development home"><b>MEC</b><span>GAME DEV</span></a>
     <nav className={`nav-links ${open ? "is-open" : ""}`} aria-label="Primary navigation">
       {nav.map((item) => <a key={item.href} href={item.href} onClick={() => setOpen(false)}>{item.label}</a>)}
       <a className="mobile-register" {...registerProps}>Register <ArrowRight /></a>
     </nav>
-    <div className="nav-status"><span>LEVEL {levels[active].number} / 06</span><Button asChild variant="cinematic" size="sm"><a {...registerProps}>Register <ArrowRight /></a></Button></div>
+    <div className="nav-status"><span>LEVEL {activeLevel.number} / 06</span><Button asChild variant="cinematic" size="sm"><a {...registerProps}>Register <ArrowRight /></a></Button></div>
     <Button variant="ghost" size="icon" className="menu-button" onClick={() => setOpen(!open)} aria-label={open ? "Close menu" : "Open menu"}>{open ? <X /> : <Menu />}</Button>
   </header>;
 }
